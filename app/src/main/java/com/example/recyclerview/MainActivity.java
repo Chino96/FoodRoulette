@@ -1,5 +1,6 @@
 package com.example.recyclerview;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -14,7 +15,7 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
 
     private ArrayList<Restaurant> mRestaurants = new ArrayList<>();
-    private ArrayList<Restaurant> selected = new ArrayList<>();
+    private ArrayList<String> selected = new ArrayList<>();
     private RecyclerView mView;
     private CustomAdapter mAdapter;
     private Button btnNext;
@@ -38,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
 
         for(int i = 0; i< 10; i++){
             mRestaurants.add(new Restaurant("chino",i+"",1));
+            selected.add(mRestaurants.get(i).getmName());
         }
         mAdapter.notifyDataSetChanged();
 
@@ -45,8 +47,11 @@ public class MainActivity extends AppCompatActivity {
         btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int size = mRestaurants.size();
-                Restaurant restaurant = mRestaurants.get(((int)Math.random()*size));
+                Intent intent = new Intent(MainActivity.this, RouletteActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putStringArrayList("selected",selected);
+                intent.putExtras(bundle);
+                startActivity(intent);
             }
         });
     }
