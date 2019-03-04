@@ -1,4 +1,4 @@
-package com.example.recyclerview;
+package com.example.foodroulette;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -11,6 +11,8 @@ import android.view.animation.RotateAnimation;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.example.recyclerview.R;
 
 import java.util.ArrayList;
 import java.util.Random;

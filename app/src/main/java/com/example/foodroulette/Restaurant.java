@@ -1,4 +1,4 @@
-package com.example.recyclerview;
+package com.example.foodroulette;
 
 public class Restaurant {
     private String mName;
