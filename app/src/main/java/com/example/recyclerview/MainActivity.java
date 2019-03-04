@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         for(int i = 0; i< 10; i++){
-            mRestaurants.add(new Restaurant("chino",i+"",1));
+            mRestaurants.add(new Restaurant("Food Type",i+"",1));
             selected.add(mRestaurants.get(i).getmName());
         }
         mAdapter.notifyDataSetChanged();
