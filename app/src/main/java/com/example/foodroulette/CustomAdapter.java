@@ -25,7 +25,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
         Log.v("CreateViewHolder", "in onCreateViewHolder");
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.contact_list_layout,parent,false);
+                .inflate(R.layout.food_list_layout,parent,false);
 
         return new MyViewHolder(itemView);
     }
