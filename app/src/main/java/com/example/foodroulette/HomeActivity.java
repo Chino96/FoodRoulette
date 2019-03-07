@@ -38,10 +38,11 @@ public class HomeActivity extends AppCompatActivity {
 
 
 
-        for(int i = 0; i< 10; i++){
+        for(int i = 0; i< 37; i++){
             mRestaurants.add(new Restaurant("Food Type",i+"",1));
             selected.add(mRestaurants.get(i).getmName());
         }
+
         mAdapter.notifyDataSetChanged();
 
         //prepareData();

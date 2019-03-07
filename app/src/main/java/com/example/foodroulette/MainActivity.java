@@ -12,7 +12,7 @@ import com.example.recyclerview.R;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
-    private static int SPLASH_TIME_OUT = 4000;
+    private static int SPLASH_TIME_OUT = 7000;
 
 
     @Override

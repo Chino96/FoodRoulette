@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
 import com.example.recyclerview.R;
@@ -15,6 +16,7 @@ import java.util.ArrayList;
 public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHolder> {
     // declaring some fields.
     private ArrayList<Restaurant> arrayList = new ArrayList<>();
+    public ArrayList<String> selected =  new ArrayList<>();
 
     public CustomAdapter(ArrayList<Restaurant> arrayList) {
         this.arrayList = arrayList;
@@ -37,6 +39,13 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
         holder.name.setText(contact.getmName());
         holder.description.setText(contact.getmDescription());
 
+        if(holder.checkBox.isChecked()){
+            selected.add(holder.name.getText().toString());
+        }
+        else if(holder.checkBox.isChecked()){
+            selected.add(holder.name.getText().toString());
+        }
+
 
     }
 
@@ -47,11 +56,13 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         TextView name, description;
+        CheckBox checkBox;
         public MyViewHolder(View itemView) {
             super(itemView);
             Log.v("ViewHolder","in View Holder");
             name = itemView.findViewById(R.id.textView);
             description = itemView.findViewById(R.id.textView2);
+            checkBox = itemView.findViewById(R.id.checkBox);
         }
     }
 }

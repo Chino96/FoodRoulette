@@ -25,7 +25,7 @@ public class RouletteActivity extends AppCompatActivity {
     ArrayList<String> names;
     TextView restaurantView;
     String selected;
-
+    private static final float FACTOR =4.86f;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,5 +77,21 @@ public class RouletteActivity extends AppCompatActivity {
         });
 
 
+    }
+
+    private String currentRestaurant(int degrees) {
+
+        String text = "";
+        int j = 1;
+        int k = 3;
+        for (int i =0 ; i< 37;i++) {
+            if (degrees >= (FACTOR * j) && degrees < (FACTOR * k)) {
+                text = names.get(i);
+
+                j+=2;
+                k+=2;
+            }
+        }
+        return text;
     }
 }
