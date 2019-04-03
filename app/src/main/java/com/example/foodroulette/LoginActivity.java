@@ -32,8 +32,9 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if(Username.getText().toString().equalsIgnoreCase("user") && Password.getText().toString().equals("password")){
 
-                    Intent intent = new Intent(LoginActivity.this,HomeActivity.class);
+                    Intent intent = new Intent(LoginActivity.this,SelectActivity.class);
                     startActivity(intent);
+                    finish();
                 }
                 else{
                     Log.v(" ",""+Username.getText());
