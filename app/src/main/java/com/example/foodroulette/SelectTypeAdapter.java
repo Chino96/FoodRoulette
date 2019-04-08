@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.recyclerview.R;
@@ -15,10 +16,10 @@ import java.util.ArrayList;
 
 public class SelectTypeAdapter extends RecyclerView.Adapter<com.example.foodroulette.SelectTypeAdapter.MyViewHolder> {
         // declaring some fields.
-        private ArrayList<Restaurant> arrayList = new ArrayList<>();
+        private ArrayList<FoodGenre> arrayList = new ArrayList<>();
         public ArrayList<String> selected =  new ArrayList<>();
 
-        public SelectTypeAdapter(ArrayList<Restaurant> arrayList) {
+        public SelectTypeAdapter(ArrayList<FoodGenre> arrayList) {
             this.arrayList = arrayList;
         }
 
@@ -34,24 +35,27 @@ public class SelectTypeAdapter extends RecyclerView.Adapter<com.example.foodroul
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder myViewHolder, int i) {
-
+        FoodGenre type = arrayList.get(i);
+        myViewHolder.name.setText(type.getGenreName());
+        myViewHolder.imageView.setImageResource(type.getmImageID());
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return arrayList.size();
     }
 
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-            TextView name, description;
+            TextView name;
             CheckBox checkBox;
+            ImageView imageView;
             public MyViewHolder(View itemView) {
                 super(itemView);
                 Log.v("ViewHolder","in View Holder");
                 name = itemView.findViewById(R.id.textView);
-                description = itemView.findViewById(R.id.textView2);
                 checkBox = itemView.findViewById(R.id.checkBox);
+                imageView = itemView.findViewById(R.id.imageView);
             }
         }
     }

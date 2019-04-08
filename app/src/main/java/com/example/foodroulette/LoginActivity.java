@@ -16,6 +16,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText Username;
     private EditText Password;
     private Button button;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,22 +27,21 @@ public class LoginActivity extends AppCompatActivity {
         button = findViewById(R.id.Login);
 
 
-
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(Username.getText().toString().equalsIgnoreCase("user") && Password.getText().toString().equals("password")){
+                if (Username.getText().toString().equalsIgnoreCase("user") && Password.getText().toString().equals("password")) {
 
-                    Intent intent = new Intent(LoginActivity.this,SelectActivity.class);
+                    Intent intent = new Intent(LoginActivity.this, SelectActivity.class);
                     startActivity(intent);
                     finish();
-                }
-                else{
-                    Log.v(" ",""+Username.getText());
-                    Log.v(" ",""+Password.getText());
-                    Toast.makeText(LoginActivity.this,"Invalid Username/Password",Toast.LENGTH_SHORT).show();
+                } else {
+                    Log.v(" ", "" + Username.getText());
+                    Log.v(" ", "" + Password.getText());
+                    Toast.makeText(LoginActivity.this, "Invalid Username/Password", Toast.LENGTH_SHORT).show();
                 }
             }
         });
     }
+
 }
