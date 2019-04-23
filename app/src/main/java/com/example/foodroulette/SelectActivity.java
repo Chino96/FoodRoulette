@@ -7,8 +7,10 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 
 import com.example.recyclerview.R;
@@ -24,14 +26,21 @@ public class SelectActivity extends AppCompatActivity {
     private RecyclerView mView2;
     private SelectTypeAdapter typeAdapter;
     private ImageView imageView;
+    private CheckBox mcheckbox;
+    private DBHelper db;
+    ArrayList<String> getSelected;
 
     private int [] images= {R.drawable.fastfood,R.drawable.italian,R.drawable.bbq,R.drawable.chinese};
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select);
+
+        db = new DBHelper(getApplicationContext());
+
         imageView = findViewById(R.id.imageView);
         mView2 = findViewById(R.id.recyclerView2);
+        mcheckbox = findViewById(R.id.checkBox1);
 
         typeAdapter = new SelectTypeAdapter(mGenre);
         mNext= findViewById(R.id.next2);
@@ -59,6 +68,8 @@ public class SelectActivity extends AppCompatActivity {
                 startActivity(search);
             }
         });
+
+        getSelected = db.getSelected();
 
         mGenre.add(new FoodGenre("Fast Food",images[0]));
         selected.add(mGenre.get(0).getGenreName());

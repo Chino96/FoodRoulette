@@ -16,8 +16,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Next"
-        app:layout_constraintHorizontal_bias="0.498"
-        tools:layout_editor_absoluteX="646dp"
-        tools:layout_editor_absoluteY="646dp" />
+         />
+
+    <Button
+        android:id="@+id/Cancel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Cancel" />
 
 </LinearLayout>
