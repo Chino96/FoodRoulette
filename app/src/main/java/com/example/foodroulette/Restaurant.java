@@ -1,6 +1,8 @@
 package com.example.foodroulette;
 
-public class Restaurant {
+import java.io.Serializable;
+
+public class Restaurant implements Serializable {
     private String mName;
     private String mDescription;
     private int mImageID;

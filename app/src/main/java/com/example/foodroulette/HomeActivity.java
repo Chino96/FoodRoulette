@@ -15,7 +15,7 @@ import com.example.recyclerview.R;
 import java.util.ArrayList;
 
 public class HomeActivity extends AppCompatActivity {
-    private ArrayList<Restaurant> mRestaurants = new ArrayList<>();
+    private ArrayList<Restaurant> mRestaurants;
     private ArrayList<String> selected = new ArrayList<>();
     private RecyclerView mView;
     private CustomAdapter mAdapter;
@@ -24,6 +24,9 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+        Bundle bundle = getIntent().getExtras();
+        mRestaurants = (ArrayList<Restaurant>)bundle.getSerializable("restaurants");
 
 
         mView = findViewById(R.id.recyclerView);
@@ -35,12 +38,6 @@ public class HomeActivity extends AppCompatActivity {
         mView.setItemAnimator( new DefaultItemAnimator());
         mView.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));
         mView.setAdapter(mAdapter);
-
-        for(int i = 0; i< 10; i++){
-            mRestaurants.add(new Restaurant("Food Choice",i+"",1));
-            selected.add(mRestaurants.get(i).getmName());
-        }
-
 
         mAdapter.notifyDataSetChanged();
 

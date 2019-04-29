@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.recyclerview">
 
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+
     <application
         android:allowBackup="false"
         android:icon="@drawable/iconwheel"
@@ -16,6 +18,7 @@
         <activity android:name="com.example.foodroulette.HomeActivity" />
         <activity android:name="com.example.foodroulette.RouletteActivity" />
         <activity android:name="com.example.foodroulette.MainActivity">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
