@@ -12,17 +12,19 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.recyclerview.R;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class SelectActivity extends AppCompatActivity {
 
     private ArrayList<FoodGenre> mGenre = new ArrayList<>();
     private ArrayList<String> selected = new ArrayList<>();
     private Button mNext;
-    private Button mAddType;
+    private TextView logout;
     private RecyclerView mView2;
     private SelectTypeAdapter typeAdapter;
     private ImageView imageView;
@@ -30,21 +32,28 @@ public class SelectActivity extends AppCompatActivity {
     private DBHelper db;
     ArrayList<String> getSelected;
 
-    private int [] images= {R.drawable.fastfood,R.drawable.italian,R.drawable.bbq,R.drawable.chinese};
+    private int [] images= {R.drawable.fastfood,R.drawable.italian,R.drawable.bbq,R.drawable.chinese,R.drawable.seafood,R.drawable.vegetarian};
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select);
 
         db = new DBHelper(getApplicationContext());
-
+        db.getAllUsers();
         imageView = findViewById(R.id.imageView);
         mView2 = findViewById(R.id.recyclerView2);
         mcheckbox = findViewById(R.id.checkBox1);
-
+        logout = findViewById(R.id.logout);
         typeAdapter = new SelectTypeAdapter(mGenre);
+        String user = getIntent().getStringExtra("user");
+
+
+       if(db.getLoggedIn(user)) {
+            typeAdapter.setSelected(db.getSelGenre().get(0).split(","));
+        }
+
+        Log.v("first value",""+db.getSelected().get(1));
         mNext= findViewById(R.id.next2);
-        mAddType = findViewById(R.id.addType);
 
         mView2.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         mView2.setItemAnimator( new DefaultItemAnimator());
@@ -60,18 +69,19 @@ public class SelectActivity extends AppCompatActivity {
             }
         });
 
-        mAddType.setOnClickListener(new View.OnClickListener() {
+        logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent search = new Intent(SelectActivity.this,SearchActivity.class);
-                search.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(search);
+                Intent k = new Intent(SelectActivity.this,LoginActivity.class);
+                db.makeQuery("update logins set status = 0 where status = 1");
+                startActivity(k);
+                finish();
             }
         });
 
-        getSelected = db.getSelected();
 
-        mGenre.add(new FoodGenre("Fast Food",images[0]));
+
+        mGenre.add(new FoodGenre("FastFood",images[0]));
         selected.add(mGenre.get(0).getGenreName());
         mGenre.add(new FoodGenre("Italian",images[1]));
         selected.add(mGenre.get(1).getGenreName());
@@ -79,6 +89,10 @@ public class SelectActivity extends AppCompatActivity {
         selected.add(mGenre.get(2).getGenreName());
         mGenre.add(new FoodGenre("Chinese",images[3]));
         selected.add(mGenre.get(3).getGenreName());
+        mGenre.add(new FoodGenre("Seafood",images[4]));
+        selected.add(mGenre.get(4).getGenreName());
+        mGenre.add(new FoodGenre("Vegetarian",images[5]));
+        selected.add(mGenre.get(5).getGenreName());
 
         typeAdapter.notifyDataSetChanged();
 

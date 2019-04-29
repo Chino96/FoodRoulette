@@ -36,7 +36,7 @@ public class HomeActivity extends AppCompatActivity {
         mView.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));
         mView.setAdapter(mAdapter);
 
-        for(int i = 0; i< 37; i++){
+        for(int i = 0; i< 10; i++){
             mRestaurants.add(new Restaurant("Food Choice",i+"",1));
             selected.add(mRestaurants.get(i).getmName());
         }

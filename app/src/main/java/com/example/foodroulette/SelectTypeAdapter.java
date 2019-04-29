@@ -13,13 +13,15 @@ import android.widget.TextView;
 import com.example.recyclerview.R;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class SelectTypeAdapter extends RecyclerView.Adapter<com.example.foodroulette.SelectTypeAdapter.MyViewHolder> {
         // declaring some fields.
         private ArrayList<FoodGenre> arrayList = new ArrayList<>();
-        public ArrayList<String> selected =  new ArrayList<>();
+        private String[] selected;
 
-        public SelectTypeAdapter(ArrayList<FoodGenre> arrayList) {
+
+    public SelectTypeAdapter(ArrayList<FoodGenre> arrayList) {
             this.arrayList = arrayList;
         }
 
@@ -38,7 +40,13 @@ public class SelectTypeAdapter extends RecyclerView.Adapter<com.example.foodroul
         FoodGenre type = arrayList.get(i);
         myViewHolder.name.setText(type.getGenreName());
         myViewHolder.imageView.setImageResource(type.getmImageID());
-    }
+
+        if(Arrays.asList(selected).contains(arrayList.get(i).GenreName.toLowerCase())){
+            myViewHolder.checkBox.setChecked(true);
+            }
+        }
+
+
 
     @Override
     public int getItemCount() {
@@ -54,9 +62,18 @@ public class SelectTypeAdapter extends RecyclerView.Adapter<com.example.foodroul
                 super(itemView);
                 Log.v("ViewHolder","in View Holder");
                 name = itemView.findViewById(R.id.textView);
-                checkBox = itemView.findViewById(R.id.checkBox);
+                checkBox = itemView.findViewById(R.id.checkBox1);
                 imageView = itemView.findViewById(R.id.imageView);
+
             }
         }
+
+    public String[] getSelected() {
+        return selected;
+    }
+
+    public void setSelected(String[] selected) {
+        this.selected = selected;
+    }
     }
 
