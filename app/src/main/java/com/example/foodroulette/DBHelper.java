@@ -14,6 +14,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String USER_TABLE_NAME = "logins";
     public static final String USER_COLUMN_ID = "userid";
     public static final String USER_COLUMN_NAME = "name";
+    public static final int USER_COLUMN_STATUS = 0;
     public static final String USER_COLUMN_PASSWORD = "password";
     public static final String FOODTYPE_COLUMN_NAMES = "foodtypes";
     public static final String FOODTYPE_COLUMN_SELECT = "selectedfoodtypes";
@@ -25,18 +26,19 @@ public class DBHelper extends SQLiteOpenHelper {
 
 
 
+
     @Override
     public void onCreate(SQLiteDatabase db) {
         try {
             db.execSQL(
                     "create table logins " +
-                            "(id integer primary key autoincrement, name text,password text,foodtypes text,selectedfoodtypes)"
+                            "(id integer primary key autoincrement,status integer, name text,password text,foodtypes text,selectedfoodtypes)"
             );
 
             Log.v("DBHelper","Table created");
 
-            String s = "INSERT INTO logins (name, password, foodtypes, selectedfoodtypes) VALUES('Kym','money','fastfood,pizza,burgers,chinese','fastfood,pizza,burgers,chinese');";
-            String q = "INSERT INTO logins (name, password, foodtypes, selectedfoodtypes) VALUES('Chino','bhino','fastfood,pizza,burgers,chinese','fastfood,chinese');";
+            String s = "INSERT INTO logins (status,name, password, foodtypes, selectedfoodtypes) VALUES(0,'Kym','money','fastfood,italian,bbq,chinese,seafood,vegetarian','fastfood,italian,bbq,chinese');";
+            String q = "INSERT INTO logins (status,name, password, foodtypes, selectedfoodtypes) VALUES(0,'Chino','bhino','fastfood,italin,bbq,chinese,seafood,vegetarian','fastfood,chinese,seafood');";
 
             db.execSQL(s);
             db.execSQL(q);
@@ -53,15 +55,62 @@ public class DBHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
+    public int setLoggedIn(String name){
+        try{
+        SQLiteDatabase db = this.getReadableDatabase();
+        db.execSQL("update logins set status=1 where name='"+name+"'");
+        return 0;
+        }catch(Exception e){
+            return 1;
+        }
+    }
+
+    public boolean getLoggedIn(String name){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor res = db.rawQuery("select status from logins where name='"+name+"'", null);
+        res.moveToFirst();
+        int status = res.getInt((res.getColumnIndex("status")));
+
+        if(status == 1){
+            return true;
+        }
+        return false;
+    }
+
+    public void makeQuery(String query){
+        SQLiteDatabase db = this.getReadableDatabase();
+        db.execSQL(query);
+
+    }
+
+
+    public ArrayList<String> getSelGenre() {
+        ArrayList<String> array_list = new ArrayList<String>();
+
+        //hp = new HashMap();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor res =  db.rawQuery( "select selectedfoodtypes from logins where status=1", null );
+        res.moveToFirst();
+
+        Log.v("ListSize",""+res.getCount());
+        while(res.isAfterLast() == false){
+            array_list.add(res.getString(res.getColumnIndex(FOODTYPE_COLUMN_SELECT)));
+          //  array_list.add(res.getString(res.getColumnIndex(USER_COLUMN_PASSWORD)));
+            res.moveToNext();
+        }
+        return array_list;
+    }
+
+
     public ArrayList<String> getAllUsers() {
         ArrayList<String> array_list = new ArrayList<String>();
 
         //hp = new HashMap();
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor res =  db.rawQuery( "select name,password from logins", null );
+        Cursor res =  db.rawQuery( "select name,password,status from logins", null );
         res.moveToFirst();
 
-        Log.v("ListSize",""+res.getCount());
+        Log.v("Status",""+res.getInt(res.getColumnIndex(("status"))));
         while(res.isAfterLast() == false){
             array_list.add(res.getString(res.getColumnIndex(USER_COLUMN_NAME)));
             array_list.add(res.getString(res.getColumnIndex(USER_COLUMN_PASSWORD)));
@@ -76,7 +125,7 @@ public class DBHelper extends SQLiteOpenHelper {
         Cursor res =  db.rawQuery( "select selectedfoodtypes from logins", null );
         res.moveToFirst();
 
-        Log.v("These are Selected:",res.getString(res.getColumnIndex(FOODTYPE_COLUMN_SELECT)));
+        Log.v("These are Selected",res.getString(res.getColumnIndex(FOODTYPE_COLUMN_SELECT)));
         while(res.isAfterLast() == false){
             select.add(res.getString(res.getColumnIndex(FOODTYPE_COLUMN_SELECT)));
             res.moveToNext();

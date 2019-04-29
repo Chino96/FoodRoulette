@@ -39,6 +39,8 @@ public class LoginActivity extends AppCompatActivity {
                 if(users.contains(Username.getText().toString()) && Password.getText().toString().equals(users.get((users.indexOf(Username.getText().toString()) + 1)))){
 
                     Intent intent = new Intent(LoginActivity.this, SelectActivity.class);
+                    dbHelper.setLoggedIn(Username.getText().toString());
+                    intent.putExtra("user",Username.getText().toString());
                     startActivity(intent);
                     finish();
                 } else {

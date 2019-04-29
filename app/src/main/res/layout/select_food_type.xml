@@ -28,7 +28,7 @@
         android:text="TextView"
         android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintBaseline_toBaselineOf="@+id/checkBox"
+        app:layout_constraintBaseline_toBaselineOf="@+id/checkBox1"
         app:layout_constraintStart_toEndOf="@+id/imageView" />
 
 
